@@ -71,7 +71,8 @@
              '(500 () ("Internal Server Error"))))))))
 
 (defmethod hunchentoot:process-connection :around ((acceptor clack-acceptor) socket)
-  (let ((flex:*substitution-char* #-abcl #\Replacement_Character
+  (let ((flex:*substitution-char* #-(or abcl lispworks) #\Replacement_Character
+                                  #+lispworks #\Replacement-Character
                                   #+abcl #\?)
         (*client-socket* socket))
     (call-next-method)))
